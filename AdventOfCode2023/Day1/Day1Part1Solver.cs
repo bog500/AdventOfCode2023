@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2023.Day01
+
+namespace AdventOfCode2023.Day1
 {
-    public class Part1Solver
+    public class Day1Part1Solver : IPartSolver
     {
-        public int Solve(List<string> lines)
+        public string Solve(List<string> lines)
         {
             int total = 0;
             foreach (var line in lines)
@@ -42,7 +43,7 @@ namespace AdventOfCode2023.Day01
                 int i = int.Parse("" + first + last);
                 total += i;
             }
-            return total;
+            return total.ToString();
         }
 
         protected virtual string formatLine(string line)

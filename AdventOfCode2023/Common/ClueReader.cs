@@ -8,7 +8,7 @@ namespace AdventOfCode2023.Common
         {
             List<string> lines = new List<string>();
 
-            string filepath = Path.Combine(day.ToString(), Filename(file));
+            string filepath = Path.Combine(day.ToString(), "Files", Filename(file));
 
             using (StreamReader sr = new StreamReader(filepath))
             {

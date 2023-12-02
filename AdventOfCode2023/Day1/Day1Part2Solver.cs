@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2023.Day01
+namespace AdventOfCode2023.Day1
 {
-    public class Part2Solver : Part1Solver
+    public class Day1Part2Solver : Day1Part1Solver
     {
         protected override string formatLine(string line)
         {
