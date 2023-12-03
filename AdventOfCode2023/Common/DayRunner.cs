@@ -58,7 +58,7 @@ namespace AdventOfCode2023
 
         public void Demo2()
         {
-            var ans = part2Solver.Solve(demo2Lines);
+            var ans = part2Solver.Solve(demo1Lines);
             ConsoleWritter.Answer(PartEnum.Demo2, ans);
         }
 
