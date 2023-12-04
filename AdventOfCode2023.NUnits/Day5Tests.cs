@@ -1,27 +1,27 @@
 using AdventOfCode2023.Common;
-using AdventOfCode2023.Day4;
+using AdventOfCode2023.Day5;
 using static AdventOfCode2023.Common.Enums;
 
 namespace AdventOfCode2023.NUnits
 {
-    public class Day4Tests : DayBaseTests<Day4Part1Solver, Day4Part2Solver>
+    public class Day5Tests : DayBaseTests<Day5Part1Solver, Day5Part2Solver>
     {
-        public Day4Tests() : base(DayEnum.Day4)
+        public Day5Tests() : base(DayEnum.Day4)
         {
 
         }
 
         [Test]
-        [TestCase(FileEnum.Demo1, 13)]
-        [TestCase(FileEnum.Clue, 32001)]
+        [TestCase(FileEnum.Demo1, 0)]
+        [TestCase(FileEnum.Clue, 0)]
         public void Part1(FileEnum file, int expected)
         {
             base.Part1(file, expected.ToString());
         }
 
         [Test]
-        [TestCase(FileEnum.Demo1, 30)]
-        [TestCase(FileEnum.Clue, 5037841)]
+        [TestCase(FileEnum.Demo1, 0)]
+        [TestCase(FileEnum.Clue, 0)]
         public void Part2(FileEnum file, int expected)
         {
             base.Part2(file, expected.ToString());
