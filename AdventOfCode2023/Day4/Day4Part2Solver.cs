@@ -9,37 +9,44 @@ namespace AdventOfCode2023.Day4
 {
     public class Day4Part2Solver : Day4BaseSolver
     {
-        int NbCards = 0;
-
         // Card Id, Card
         Dictionary<int, Card> cards;
 
         public override string Solve(List<string> lines)
         {
             cards = base.Parse(lines);
+            cardWins = new();
 
-            NbCards = 0;
             foreach (var card in cards.Values)
             {
-                CountCards(card);
+                GetTotalCardCount(card);
             }
 
-            return NbCards.ToString();
+            int total = cardWins.Sum(o => o.Value);
+            return total.ToString();
         }
 
-        private void CountCards(Card card)
+        Dictionary<int, int> cardWins = new();
+        private int GetTotalCardCount(Card card)
         {
-            NbCards++;
+            if(cardWins.ContainsKey(card.Id))
+            {
+                return cardWins[card.Id];
+            }
+
+            int totalWinCard = 1;
             int nbCards = card.WinCount;
-            for(int i = 1; i <= nbCards; i++)
+            for (int i = 1; i <= nbCards; i++)
             {
                 int nextId = card.Id + i;
-                if(cards.ContainsKey(nextId))
+                if (cards.ContainsKey(nextId))
                 {
                     Card nextCard = cards[nextId];
-                    CountCards(nextCard);
+                    totalWinCard += GetTotalCardCount(nextCard);
                 }
             }
+            cardWins.Add(card.Id, totalWinCard);
+            return totalWinCard;
         }
     }
 }
