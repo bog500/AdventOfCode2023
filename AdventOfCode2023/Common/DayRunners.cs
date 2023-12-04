@@ -27,30 +27,46 @@ using static AdventOfCode2023.Common.Enums;
 
 namespace AdventOfCode2023.Common
 {
-    public class Day1Runner() : DayRunner<Day1Part1Solver, Day1Part2Solver>(DayEnum.Day1){ }
-    public class Day2Runner() : DayRunner<Day2Part1Solver, Day2Part2Solver>(DayEnum.Day2){ }
-    public class Day3Runner() : DayRunner<Day3Part1Solver, Day3Part2Solver>(DayEnum.Day3){ }
-    public class Day4Runner() : DayRunner<Day4Part1Solver, Day4Part2Solver>(DayEnum.Day4){ }
-    public class Day5Runner() : DayRunner<Day5Part1Solver, Day5Part2Solver>(DayEnum.Day5) { }
-    public class Day6Runner() : DayRunner<Day6Part1Solver, Day6Part2Solver>(DayEnum.Day6) { }
-    public class Day7Runner() : DayRunner<Day7Part1Solver, Day7Part2Solver>(DayEnum.Day7) { }
-    public class Day8Runner() : DayRunner<Day8Part1Solver, Day8Part2Solver>(DayEnum.Day8) { }
-    public class Day9Runner() : DayRunner<Day9Part1Solver, Day9Part2Solver>(DayEnum.Day9) { }
-    public class Day10Runner() : DayRunner<Day10Part1Solver, Day10Part2Solver>(DayEnum.Day10) { }
-    public class Day11Runner() : DayRunner<Day11Part1Solver, Day11Part2Solver>(DayEnum.Day11) { }
-    public class Day12Runner() : DayRunner<Day12Part1Solver, Day12Part2Solver>(DayEnum.Day12) { }
-    public class Day13Runner() : DayRunner<Day13Part1Solver, Day13Part2Solver>(DayEnum.Day13) { }
-    public class Day14Runner() : DayRunner<Day14Part1Solver, Day14Part2Solver>(DayEnum.Day14) { }
-    public class Day15Runner() : DayRunner<Day15Part1Solver, Day15Part2Solver>(DayEnum.Day15) { }
-    public class Day16Runner() : DayRunner<Day16Part1Solver, Day16Part2Solver>(DayEnum.Day16) { }
-    public class Day17Runner() : DayRunner<Day17Part1Solver, Day17Part2Solver>(DayEnum.Day17) { }
-    public class Day18Runner() : DayRunner<Day18Part1Solver, Day18Part2Solver>(DayEnum.Day18) { }
-    public class Day19Runner() : DayRunner<Day19Part1Solver, Day19Part2Solver>(DayEnum.Day19) { }
-    public class Day20Runner() : DayRunner<Day20Part1Solver, Day20Part2Solver>(DayEnum.Day20) { }
-    public class Day21Runner() : DayRunner<Day21Part1Solver, Day21Part2Solver>(DayEnum.Day21) { }
-    public class Day22Runner() : DayRunner<Day22Part1Solver, Day22Part2Solver>(DayEnum.Day22) { }
-    public class Day23Runner() : DayRunner<Day23Part1Solver, Day23Part2Solver>(DayEnum.Day23) { }
-    public class Day24Runner() : DayRunner<Day24Part1Solver, Day24Part2Solver>(DayEnum.Day24) { }
-    public class Day25Runner() : DayRunner<Day25Part1Solver, Day25Part2Solver>(DayEnum.Day25) { }
+    public static class DayRunners
+    {
+        public static IEnumerable<IDayRunner> GetAll()
+        {
+            foreach(var day in Enum.GetValues<DayEnum>())
+            {
+                yield return Get(day);
+            }
+        }
 
+        public static IDayRunner Get(DayEnum day)
+        {
+            return day switch
+            {
+                DayEnum.Day1 => new DayRunner<Day1Part1Solver, Day1Part2Solver>(DayEnum.Day1),
+                DayEnum.Day2 => new DayRunner<Day2Part1Solver, Day2Part2Solver>(DayEnum.Day2),
+                DayEnum.Day3 => new DayRunner<Day3Part1Solver, Day3Part2Solver>(DayEnum.Day3),
+                DayEnum.Day4 => new DayRunner<Day4Part1Solver, Day4Part2Solver>(DayEnum.Day4),
+                DayEnum.Day5 => new DayRunner<Day5Part1Solver, Day5Part2Solver>(DayEnum.Day5),
+                DayEnum.Day6 => new DayRunner<Day6Part1Solver, Day6Part2Solver>(DayEnum.Day6),
+                DayEnum.Day7 => new DayRunner<Day7Part1Solver, Day7Part2Solver>(DayEnum.Day7),
+                DayEnum.Day8 => new DayRunner<Day8Part1Solver, Day8Part2Solver>(DayEnum.Day8),
+                DayEnum.Day9 => new DayRunner<Day9Part1Solver, Day9Part2Solver>(DayEnum.Day9),
+                DayEnum.Day10 => new DayRunner<Day10Part1Solver, Day10Part2Solver>(DayEnum.Day10),
+                DayEnum.Day11 => new DayRunner<Day11Part1Solver, Day11Part2Solver>(DayEnum.Day11),
+                DayEnum.Day12 => new DayRunner<Day12Part1Solver, Day12Part2Solver>(DayEnum.Day12),
+                DayEnum.Day13 => new DayRunner<Day13Part1Solver, Day13Part2Solver>(DayEnum.Day13),
+                DayEnum.Day14 => new DayRunner<Day14Part1Solver, Day14Part2Solver>(DayEnum.Day14),
+                DayEnum.Day15 => new DayRunner<Day15Part1Solver, Day15Part2Solver>(DayEnum.Day15),
+                DayEnum.Day16 => new DayRunner<Day16Part1Solver, Day16Part2Solver>(DayEnum.Day16),
+                DayEnum.Day17 => new DayRunner<Day17Part1Solver, Day17Part2Solver>(DayEnum.Day17),
+                DayEnum.Day18 => new DayRunner<Day18Part1Solver, Day18Part2Solver>(DayEnum.Day18),
+                DayEnum.Day19 => new DayRunner<Day19Part1Solver, Day19Part2Solver>(DayEnum.Day19),
+                DayEnum.Day20 => new DayRunner<Day20Part1Solver, Day20Part2Solver>(DayEnum.Day20),
+                DayEnum.Day21 => new DayRunner<Day21Part1Solver, Day21Part2Solver>(DayEnum.Day21),
+                DayEnum.Day22 => new DayRunner<Day22Part1Solver, Day22Part2Solver>(DayEnum.Day22),
+                DayEnum.Day23 => new DayRunner<Day23Part1Solver, Day23Part2Solver>(DayEnum.Day23),
+                DayEnum.Day24 => new DayRunner<Day24Part1Solver, Day24Part2Solver>(DayEnum.Day24),
+                DayEnum.Day25 => new DayRunner<Day25Part1Solver, Day25Part2Solver>(DayEnum.Day25),
+            };
+        }
+    }
 }

@@ -26,9 +26,9 @@ namespace AdventOfCode2023
 
         public DayRunner(DayEnum day)
         {
-            Console.WriteLine("=====================");
-            Console.WriteLine("   " + day.ToString());
-            Console.WriteLine("=====================");
+            ConsoleWritter.WriteLine("=====================");
+            ConsoleWritter.WriteLine("   " + day.ToString(), ConsoleColor.Yellow);
+            ConsoleWritter.WriteLine("=====================");
 
             cr = new ClueReader(day);
 
@@ -44,7 +44,7 @@ namespace AdventOfCode2023
         {
             Demo1();
             Part1();
-            Console.WriteLine("----------------------");
+            ConsoleWritter.WriteLine("---------------------", ConsoleColor.DarkGray);
             Demo2();
             Part2();
 
@@ -85,5 +85,8 @@ namespace AdventOfCode2023
                 ConsoleWritter.Answer(PartEnum.Part2, ans);
             }
         }
+
+        public IPartSolver GetSolver1() => part1Solver;
+        public IPartSolver GetSolver2() => part2Solver;
     }
 }

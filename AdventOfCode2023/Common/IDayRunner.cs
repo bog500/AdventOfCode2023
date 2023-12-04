@@ -13,5 +13,7 @@ namespace AdventOfCode2023.Common
         public void Demo2();
         public void Part1();
         public void Part2();
+        public IPartSolver GetSolver1();
+        public IPartSolver GetSolver2();
     }
 }

@@ -4,19 +4,19 @@ using static AdventOfCode2023.Common.Enums;
 
 namespace AdventOfCode2023.NUnits
 {
-    public abstract class DayBaseTests<T1, T2>(DayEnum day)
-        where T1 : IPartSolver, new()
-        where T2 : IPartSolver, new()
+    public abstract class DayBaseTests(DayEnum day)
     {
-        protected T1 part1Solver;
-        protected T2 part2Solver;
+        protected IPartSolver part1Solver;
+        protected IPartSolver part2Solver;
         protected ClueReader cr;
 
         [SetUp]
         public void Setup()
         {
-            part1Solver = new();
-            part2Solver = new();
+            IDayRunner runner = DayRunners.Get(day);
+
+            part1Solver = runner.GetSolver1();
+            part2Solver = runner.GetSolver2();
             cr = new ClueReader(day);
         }
 

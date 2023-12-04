@@ -11,13 +11,22 @@ namespace AdventOfCode2023.Common
     {
         public static void Answer(PartEnum part, object answer)
         {
+            ConsoleWritter.Write(PartString(part) + ":   ", ConsoleColor.Cyan);
+            ConsoleWritter.Write(answer, ConsoleColor.Green);
+        }
+
+        public static void WriteLine(object msg, ConsoleColor color = ConsoleColor.Gray)
+        {
+            Write(msg, color);
+            Console.WriteLine("");
+        }
+
+        public static void Write(object msg, ConsoleColor color)
+        {
             ConsoleColor oldColor = Console.ForegroundColor;
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write(PartString(part) + ":   ");
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(answer);
+            Console.ForegroundColor = color;
+            Console.Write(msg);
 
             Console.ForegroundColor = oldColor;
         }

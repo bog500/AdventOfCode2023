@@ -4,7 +4,7 @@ using static AdventOfCode2023.Common.Enums;
 
 namespace AdventOfCode2023.NUnits
 {
-    public class Day3Tests : DayBaseTests<Day3Part1Solver, Day3Part2Solver>
+    public class Day3Tests : DayBaseTests
     {
         public Day3Tests() : base(DayEnum.Day3)
         {

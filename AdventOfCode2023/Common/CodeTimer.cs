@@ -19,12 +19,7 @@ namespace AdventOfCode2023.Common
         {
             sw.Stop();
 
-            ConsoleColor oldColor = Console.ForegroundColor;
-
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("    " + sw.ElapsedMilliseconds + "ms");
-
-            Console.ForegroundColor = oldColor;
+            ConsoleWritter.WriteLine("    " + sw.ElapsedMilliseconds + "ms", ConsoleColor.DarkBlue);
             
         }
     }
