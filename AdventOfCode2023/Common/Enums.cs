@@ -38,6 +38,7 @@ namespace AdventOfCode2023.Common
             Day22,
             Day23,
             Day24,
+            Day25,
         }
 
     }

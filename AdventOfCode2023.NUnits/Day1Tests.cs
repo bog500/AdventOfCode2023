@@ -16,11 +16,7 @@ namespace AdventOfCode2023.NUnits
         [TestCase(FileEnum.Clue, 55447)]
         public void Part1(FileEnum file, int expected)
         {
-            List<string> lines = cr.Read(file);
-
-            string actual = part1Solver.Solve(lines);
-
-            Assert.That(actual, Is.EqualTo(expected.ToString()));
+            base.Part1(file, expected.ToString());
         }
 
         [Test]
@@ -28,11 +24,7 @@ namespace AdventOfCode2023.NUnits
         [TestCase(FileEnum.Clue, 54706)]
         public void Part2(FileEnum file, int expected)
         {
-            List<string> lines = cr.Read(file);
-
-            string actual = part2Solver.Solve(lines);
-
-            Assert.That(actual, Is.EqualTo(expected.ToString()));
+            base.Part2(file, expected.ToString());
         }
     }
 }

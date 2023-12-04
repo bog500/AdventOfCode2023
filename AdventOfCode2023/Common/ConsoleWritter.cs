@@ -17,7 +17,7 @@ namespace AdventOfCode2023.Common
             Console.Write(PartString(part) + ":   ");
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(answer);
+            Console.Write(answer);
 
             Console.ForegroundColor = oldColor;
         }

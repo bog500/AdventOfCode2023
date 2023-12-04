@@ -42,36 +42,48 @@ namespace AdventOfCode2023
 
         public void RunAll()
         {
-            
-
             Demo1();
-            Demo2();
             Part1();
+            Console.WriteLine("----------------------");
+            Demo2();
             Part2();
+
         }
 
         public void Demo1()
         {
-            var ans = part1Solver.Solve(demo1Lines);
-            ConsoleWritter.Answer(PartEnum.Demo1, ans);
+            using (new CodeTimer())
+            {
+                var ans = part1Solver.Solve(demo1Lines);
+                ConsoleWritter.Answer(PartEnum.Demo1, ans);
+            }
         }
 
         public void Demo2()
         {
-            var ans = part2Solver.Solve(demo1Lines);
-            ConsoleWritter.Answer(PartEnum.Demo2, ans);
+            using (new CodeTimer())
+            {
+                var ans = part2Solver.Solve(demo1Lines);
+                ConsoleWritter.Answer(PartEnum.Demo2, ans);
+            }
         }
 
         public void Part1()
         {
-            var ans = part1Solver.Solve(clueLines);
-            ConsoleWritter.Answer(PartEnum.Part1, ans);
+            using (new CodeTimer())
+            {
+                var ans = part1Solver.Solve(clueLines);
+                ConsoleWritter.Answer(PartEnum.Part1, ans);
+            }
         }
 
         public void Part2()
         {
-            var ans = part2Solver.Solve(clueLines);
-            ConsoleWritter.Answer(PartEnum.Part2, ans);
+            using (new CodeTimer())
+            {
+                var ans = part2Solver.Solve(clueLines);
+                ConsoleWritter.Answer(PartEnum.Part2, ans);
+            }
         }
     }
 }

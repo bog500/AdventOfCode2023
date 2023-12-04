@@ -9,5 +9,8 @@
 //IDayRunner runner2 = new Day2Runner();
 //runner2.RunAll();
 
-IDayRunner runner3 = new Day3Runner();
-runner3.RunAll();
+//IDayRunner runner3 = new Day3Runner();
+//runner3.RunAll();
+
+IDayRunner runner4 = new Day4Runner();
+runner4.RunAll();

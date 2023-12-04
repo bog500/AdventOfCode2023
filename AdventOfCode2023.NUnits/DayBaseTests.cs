@@ -20,5 +20,23 @@ namespace AdventOfCode2023.NUnits
             cr = new ClueReader(day);
         }
 
+        public void Part1(FileEnum file, string expected)
+        {
+            AssertTest(part1Solver, file, expected);
+        }
+
+        public void Part2(FileEnum file, string expected)
+        {
+            AssertTest(part2Solver, file, expected);
+        }
+
+        private void AssertTest(IPartSolver solver, FileEnum file, string expected)
+        {
+            List<string> lines = cr.Read(file);
+
+            string actual = solver.Solve(lines);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
