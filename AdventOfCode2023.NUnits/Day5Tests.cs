@@ -6,15 +6,15 @@ namespace AdventOfCode2023.NUnits
 {
     public class Day5Tests : DayBaseTests
     {
-        public Day5Tests() : base(DayEnum.Day4)
+        public Day5Tests() : base(DayEnum.Day5)
         {
 
         }
 
         [Test]
-        [TestCase(FileEnum.Demo1, 0)]
-        [TestCase(FileEnum.Clue, 0)]
-        public void Part1(FileEnum file, int expected)
+        [TestCase(FileEnum.Demo1, 35)]
+        [TestCase(FileEnum.Clue, 340994526)]
+        public void Part1(FileEnum file, long expected)
         {
             base.Part1(file, expected.ToString());
         }

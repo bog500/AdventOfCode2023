@@ -13,7 +13,25 @@ namespace AdventOfCode2023.Day5
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            Day5Data data = base.Parse(lines);
+
+            long minValue = long.MaxValue;
+
+            foreach(var seed in data.Seeds)
+            {
+                long soil = data.Maps[0].Destination(seed);
+                long fertilizer = data.Maps[1].Destination(soil);
+                long water = data.Maps[2].Destination(fertilizer);
+                long light = data.Maps[3].Destination(water);
+                long temperature = data.Maps[4].Destination(light);
+                long humidity = data.Maps[5].Destination(temperature);
+                long location = data.Maps[6].Destination(humidity);
+
+                if (location < minValue)
+                    minValue = location;
+            }
+
+            return minValue.ToString();
         }
     }
 }
