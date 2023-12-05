@@ -16,31 +16,13 @@ namespace AdventOfCode2023.Day1
             foreach (var line in lines)
             {
                 string formattedLine = formatLine(line);
-                char first = '0';
-                char last = '0';
-                bool firstDefined = false;
-                bool lastDefined = false;
+                List<char> number = new();
                 foreach (char c in formattedLine)
                 {
-                    if (c >= '0' && c <= '9')
-                    {
-                        if (firstDefined)
-                        {
-                            last = c;
-                            lastDefined = true;
-                        }
-                        else
-                        {
-                            first = c;
-                            firstDefined = true;
-                        }
-                    }
+                    if (c.IsNumber())
+                        number.Add(c);
                 }
-                if (!lastDefined)
-                {
-                    last = first;
-                }
-                int i = int.Parse("" + first + last);
+                int i = int.Parse("" + number.First() + number.Last());
                 total += i;
             }
             return total.ToString();

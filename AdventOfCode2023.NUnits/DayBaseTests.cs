@@ -13,10 +13,11 @@ namespace AdventOfCode2023.NUnits
         [SetUp]
         public void Setup()
         {
-            IDayRunner runner = DayRunners.Get(day);
+            IDayRunner runner1 = DayRunners.Get(day, PartEnum.Part1);
+            IDayRunner runner2 = DayRunners.Get(day, PartEnum.Part2);
 
-            part1Solver = runner.GetSolver1();
-            part2Solver = runner.GetSolver2();
+            part1Solver = runner1.GetSolver();
+            part2Solver = runner2.GetSolver();
             cr = new ClueReader(day);
         }
 

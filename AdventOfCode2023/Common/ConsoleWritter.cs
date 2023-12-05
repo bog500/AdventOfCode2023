@@ -9,36 +9,36 @@ namespace AdventOfCode2023.Common
 {
     public static class ConsoleWritter
     {
-        public static void Answer(PartEnum part, object answer)
+        public static bool Disabled = false;
+        public static void Answer(DemoEnum realdemo, object answer)
         {
-            ConsoleWritter.Write(PartString(part) + ":   ", ConsoleColor.Cyan);
-            ConsoleWritter.Write(answer, ConsoleColor.Green);
+            if(!Disabled)
+            {
+                ConsoleWritter.Write(realdemo.ToString() + ":   ", ConsoleColor.Cyan);
+                ConsoleWritter.Write(answer, ConsoleColor.Green);
+            }
         }
 
         public static void WriteLine(object msg, ConsoleColor color = ConsoleColor.Gray)
         {
-            Write(msg, color);
-            Console.WriteLine("");
+            if (!Disabled)
+            {
+                Write(msg, color);
+                Console.WriteLine("");
+            }
         }
 
         public static void Write(object msg, ConsoleColor color)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            if (!Disabled)
+            { 
+                ConsoleColor oldColor = Console.ForegroundColor;
 
-            Console.ForegroundColor = color;
-            Console.Write(msg);
+                Console.ForegroundColor = color;
+                Console.Write(msg);
 
-            Console.ForegroundColor = oldColor;
+                Console.ForegroundColor = oldColor;
+            }
         }
-
-        private static string PartString(PartEnum partEnum) =>
-            partEnum switch
-            {
-                PartEnum.Part1 => "Part 1",
-                PartEnum.Part2 => "Part 2",
-                PartEnum.Demo1 => "Demo 1",
-                PartEnum.Demo2 => "Demo 2",
-                _ => "??"
-            };
     }
 }

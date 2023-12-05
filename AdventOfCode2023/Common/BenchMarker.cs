@@ -1,5 +1,4 @@
-﻿using AdventOfCode2023.Common;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
@@ -11,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using static AdventOfCode2023.Common.Enums;
 
-namespace AdventOfCode2023.Day1
+namespace AdventOfCode2023.Common
 {
-    public class Day1BenchMarker
+    public class BenchMarker
     {
-        public void Run()
+        public void Run<T>()
         {
+            bool previousState = ConsoleWritter.Disabled;
+            ConsoleWritter.Disabled = true;
+
             var config = DefaultConfig.Instance.AddJob(Job
                 .ShortRun
                 .WithLaunchCount(1)
@@ -24,12 +26,14 @@ namespace AdventOfCode2023.Day1
                 .WithToolchain(InProcessEmitToolchain.Instance)
                 );
 
-            BenchmarkRunner.Run<Day1BenchMarks>(ManualConfig
+            BenchmarkRunner.Run<T>(ManualConfig
                                 .Create(config)
                                 .WithOptions(ConfigOptions.DisableOptimizationsValidator)
                                 .WithOptions(ConfigOptions.JoinSummary)
                                 .WithOptions(ConfigOptions.DisableLogFile)
                                 );
+
+            ConsoleWritter.Disabled = previousState;
         }
     }
 }

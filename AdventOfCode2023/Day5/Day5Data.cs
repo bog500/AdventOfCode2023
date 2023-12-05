@@ -8,12 +8,21 @@ namespace AdventOfCode2023.Day5
 {
     public record Day5Data(List<long> Seeds, List<Map> Maps)
     {
-
+        public IEnumerable<(long SeedStart, long Range)> SeedRanges
+        {
+            get
+            {
+                for (int i = 0; i < Seeds.Count; i = i + 2)
+                {
+                    yield return (Seeds[i], Seeds[i + 1]);
+                }
+            }
+        }
     }
 
     public record Map(int Id, string Name, List<MapRange> Ranges)
     {
-        public long Destination(long source)
+        public long Gestination(long source)
         {
             foreach(var range in Ranges)
             {
@@ -37,6 +46,5 @@ namespace AdventOfCode2023.Day5
             return (0, false);
         }
     }
-
 
 }

@@ -8,9 +8,11 @@ namespace AdventOfCode2023.Common
 {
     public class Enums
     {
-        public enum PartEnum { Demo1, Demo2, Part1, Part2 }
+        public enum DemoEnum { Demo, Real }
 
-        public enum FileEnum { Demo1, Demo2, Clue }
+        public enum PartEnum { Part1, Part2 }
+
+        public enum FileEnum { Default, Demo1, Demo2, Test1, Test2, Clue }
 
         public enum DayEnum 
         { 

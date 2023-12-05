@@ -20,9 +20,10 @@ namespace AdventOfCode2023.NUnits
         }
 
         [Test]
-        [TestCase(FileEnum.Demo1, 0)]
-        [TestCase(FileEnum.Clue, 0)]
-        public void Part2(FileEnum file, int expected)
+        [TestCase(FileEnum.Demo1, 46)]
+        // read is not foundyet
+        //[TestCase(FileEnum.Clue, 0)]
+        public void Part2(FileEnum file, long expected)
         {
             base.Part2(file, expected.ToString());
         }

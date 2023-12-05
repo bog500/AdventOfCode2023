@@ -10,83 +10,85 @@ using static AdventOfCode2023.Common.Enums;
 
 namespace AdventOfCode2023
 {
-    public class DayRunner<T1, T2> : IDayRunner
-        where T1 : IPartSolver, new()
-        where T2 : IPartSolver, new()
+    [MemoryDiagnoser]
+    public class DayRunner<T> : IDayRunner
+        where T : IPartSolver, new()
     {
         
         private readonly ClueReader cr;
 
-        private readonly T1 part1Solver;
-        private readonly T2 part2Solver;
+        private readonly T solver;
 
-        protected readonly List<string> demo1Lines;
-        protected readonly List<string> demo2Lines;
+        protected readonly List<string> demoLines;
         protected readonly List<string> clueLines;
 
-        public DayRunner(DayEnum day)
+        private DayEnum Day;
+        private PartEnum Part;
+
+        private void SetEnums()
         {
+            Day = Enum.Parse<DayEnum>(typeof(T).Name
+                .Replace("Part1","")
+                .Replace("Part2", "")
+                .Replace("Solver",""));
+
+            Part = typeof(T).Name.Contains("Part1") ? PartEnum.Part1 : PartEnum.Part2;
+        }
+
+        public DayRunner(): this(FileEnum.Default)
+        {
+
+        }
+
+        public DayRunner(FileEnum file = FileEnum.Default)
+        {
+            SetEnums();
+
             ConsoleWritter.WriteLine("=====================");
-            ConsoleWritter.WriteLine("   " + day.ToString(), ConsoleColor.Yellow);
+            ConsoleWritter.Write("   " + Day.ToString(), ConsoleColor.Yellow);
+            ConsoleWritter.WriteLine("   " + Part.ToString(), ConsoleColor.White);
             ConsoleWritter.WriteLine("=====================");
 
-            cr = new ClueReader(day);
+            cr = new ClueReader(Day);
 
-            part1Solver = new();
-            part2Solver = new();
+            solver = new();
 
-            demo1Lines = cr.Read(FileEnum.Demo1);
-            demo2Lines = cr.Read(FileEnum.Demo2);
-            clueLines = cr.Read(FileEnum.Clue);
+            demoLines = cr.Read(GetFile(file, DemoEnum.Demo, Part));
+            clueLines = cr.Read(GetFile(file, DemoEnum.Real, Part));
         }
 
-        public void RunAll()
+        private FileEnum GetFile(FileEnum file, DemoEnum demoreal, PartEnum part)
         {
-            Demo1();
-            Part1();
-            ConsoleWritter.WriteLine("---------------------", ConsoleColor.DarkGray);
-            Demo2();
-            Part2();
-
+            return (file, demoreal, part) switch
+            {
+                (FileEnum.Default, DemoEnum.Demo, PartEnum.Part1) => FileEnum.Demo1,
+                (FileEnum.Default, DemoEnum.Demo, PartEnum.Part2) => FileEnum.Demo2,
+                (FileEnum.Default, DemoEnum.Real, _) => FileEnum.Clue,
+                (_,_, _) => file,
+            };
         }
 
-        public void Demo1()
+        [Benchmark]
+        public void Demo()
         {
             using (new CodeTimer())
             {
-                var ans = part1Solver.Solve(demo1Lines);
-                ConsoleWritter.Answer(PartEnum.Demo1, ans);
+                var ans = solver.Solve(demoLines);
+                ConsoleWritter.Answer(DemoEnum.Demo, ans);
             }
         }
 
-        public void Demo2()
+        [Benchmark]
+        public void Real()
         {
             using (new CodeTimer())
             {
-                var ans = part2Solver.Solve(demo1Lines);
-                ConsoleWritter.Answer(PartEnum.Demo2, ans);
+                var ans = solver.Solve(clueLines);
+                ConsoleWritter.Answer(DemoEnum.Real, ans);
             }
         }
 
-        public void Part1()
-        {
-            using (new CodeTimer())
-            {
-                var ans = part1Solver.Solve(clueLines);
-                ConsoleWritter.Answer(PartEnum.Part1, ans);
-            }
-        }
 
-        public void Part2()
-        {
-            using (new CodeTimer())
-            {
-                var ans = part2Solver.Solve(clueLines);
-                ConsoleWritter.Answer(PartEnum.Part2, ans);
-            }
-        }
-
-        public IPartSolver GetSolver1() => part1Solver;
-        public IPartSolver GetSolver2() => part2Solver;
+        public IPartSolver GetSolver() => solver;
     }
 }

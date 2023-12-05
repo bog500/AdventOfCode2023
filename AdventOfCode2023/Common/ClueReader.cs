@@ -28,12 +28,6 @@ namespace AdventOfCode2023.Common
             return lines;
         }
 
-        private string Filename(FileEnum file) =>
-            file switch
-            {
-                FileEnum.Clue => "clue.txt",
-                FileEnum.Demo1 => "demo1.txt",
-                FileEnum.Demo2 => "demo2.txt",
-            };
+        private string Filename(FileEnum file) => file.ToString() + ".txt";
     }
 }
