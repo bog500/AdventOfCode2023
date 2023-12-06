@@ -33,7 +33,7 @@ namespace AdventOfCode2023.Day5
                     tasks.Add(GetLocation(seed));
                 }
                 await Task.WhenAll(tasks);
-                ConsoleWritter.WriteLine($"checking {pair.SeedStart}...");
+                ConsoleWritter.WriteLine($"checked {pair.SeedStart}!");
             }
 
             foreach (var t in tasks)
