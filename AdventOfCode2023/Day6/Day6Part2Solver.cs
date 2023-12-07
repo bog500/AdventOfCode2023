@@ -11,7 +11,16 @@ namespace AdventOfCode2023.Day6
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            var races = base.Parse(lines).ToList();
+
+            var errorMaging = CalcErrorMargin(races);
+
+            return errorMaging.ToString();
+        }
+
+        protected override string FormatLine(string line)
+        {
+            return line.Replace(" ", "");
         }
     }
 }
