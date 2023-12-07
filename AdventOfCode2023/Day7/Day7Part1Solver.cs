@@ -13,7 +13,36 @@ namespace AdventOfCode2023.Day7
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            var hands = Parse(lines).OrderBy(o => o).ToList();
+
+            int total = 0;
+            int count = 0;
+
+            foreach(var hand in hands)
+            {
+                // 765 * 1
+                // 220 * 2
+                // 28 * 3
+                // 684 * 4
+                // 483 * 5
+
+                // 252295678
+                count++;
+                int handValue = hand.Bid * count;
+                total += handValue;
+            }
+            return total.ToString();
         }
+
+        public IEnumerable<Hand> Parse(List<string> lines)
+        {
+            foreach (var line in lines)
+            {
+                string cards = line.Split(' ')[0];
+                int bid = int.Parse(line.Split(' ')[1]);
+                yield return new HandPart1(cards, bid);
+            }
+        }
+
     }
 }
