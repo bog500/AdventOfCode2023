@@ -1,13 +1,4 @@
 ﻿using AdventOfCode2023.Common;
-using AdventOfCode2023.Day2;
-using AdventOfCode2023.Day5;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 
 namespace AdventOfCode2023.Day9
