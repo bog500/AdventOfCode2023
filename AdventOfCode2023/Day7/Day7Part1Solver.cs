@@ -20,13 +20,6 @@ namespace AdventOfCode2023.Day7
 
             foreach(var hand in hands)
             {
-                // 765 * 1
-                // 220 * 2
-                // 28 * 3
-                // 684 * 4
-                // 483 * 5
-
-                // 252295678
                 count++;
                 int handValue = hand.Bid * count;
                 total += handValue;
