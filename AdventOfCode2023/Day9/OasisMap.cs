@@ -11,6 +11,6 @@ namespace AdventOfCode2023.Day9
     {
         public int Level { get; set; } = 0;
         public Dictionary<Coord, int> Oasis = new();
-        public int RowCount(int y) => Oasis.Count(o => o.Key.Y == y);
+        public int CountInRow(int y) => Oasis.Count(o => o.Key.Y == y);
     }
 }

@@ -22,7 +22,7 @@ namespace AdventOfCode2023.Day9
         protected override void AddZero(ref OasisMap map)
         {
             int maxLevel = map.Level;
-            var lastRowCount = map.RowCount(maxLevel);
+            var lastRowCount = map.CountInRow(maxLevel);
             map.Oasis.Add(new Coord(lastRowCount, maxLevel), 0);
         }
 
@@ -31,7 +31,7 @@ namespace AdventOfCode2023.Day9
             if (level == -1)
                 return;
 
-            var rowCount = map.RowCount(level);
+            var rowCount = map.CountInRow(level);
             int newValue = map.Oasis[new Coord(rowCount-1, level)] + map.Oasis[new Coord(rowCount-1, level+1)];
             map.Oasis.Add(new Coord(rowCount, level), newValue);
 
@@ -40,7 +40,7 @@ namespace AdventOfCode2023.Day9
 
         protected override int GetMapValue(OasisMap map)
         {
-            var rowCount = map.RowCount(0);
+            var rowCount = map.CountInRow(0);
             return map.Oasis[new Coord(rowCount - 1, 0)];
         }
     }
