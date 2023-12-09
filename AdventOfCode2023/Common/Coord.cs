@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2023.Common
 {
-    public struct Coord
+    public struct Coord(int x, int y)
     {
-        public int X { get; set; }
+        public int X => x;
+        public int Y => y;
+    }
 
-        public int Y { get; set; }
-
-        public Coord(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
+    public struct Coord3D(int x, int y, int z)
+    {
+        public int X => x;
+        public int Y => y;
+        public int Z => z;
     }
 }
