@@ -13,7 +13,15 @@ namespace AdventOfCode2023.Day8
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            SetData(lines);
+
+            Node currentNode = Nodes["AAA"];
+
+            int steps = CountStepsToDestination(currentNode);
+
+            return steps.ToString();
         }
+
+        protected override bool IsAtDestination(Node node) => node.Key == "ZZZ";
     }
 }
