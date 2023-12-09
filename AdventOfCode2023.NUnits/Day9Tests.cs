@@ -13,7 +13,7 @@ namespace AdventOfCode2023.NUnits
 
         [Test]
         [TestCase(FileEnum.Demo1, 114)]
-        //[TestCase(FileEnum.Clue, 0)]
+        [TestCase(FileEnum.Clue, 1930746032)]
         public void Part1(FileEnum file, long expected)
         {
             base.Part1(file, expected.ToString());
@@ -21,7 +21,7 @@ namespace AdventOfCode2023.NUnits
 
         [Test]
         [TestCase(FileEnum.Demo2, 2)]
-        [TestCase(FileEnum.Clue, 0)]
+        [TestCase(FileEnum.Clue, 1154)]
         public void Part2(FileEnum file, long expected)
         {
             base.Part2(file, expected.ToString());
