@@ -13,7 +13,10 @@ namespace AdventOfCode2023.Day11
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            var ans = base.CalcDistance(lines);
+            return ans.ToString();
         }
     }
+
+
 }
