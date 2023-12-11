@@ -14,7 +14,8 @@ namespace AdventOfCode2023.Day10
     {
         protected Dictionary<Coord, Pipe> maze = new();
 
-        protected HashSet<Pipe> visit = new();
+        protected HashSet<Pipe> outside = new();
+        protected HashSet<Pipe> mainLoop = new();
 
         protected Pipe start;
 
@@ -25,6 +26,10 @@ namespace AdventOfCode2023.Day10
 
         protected void CreateMaze(List<string> lines)
         {
+            maze = new();
+            mainLoop = new();
+            outside = new();
+
             int y = 0;
             foreach(var line in lines)
             {
@@ -40,20 +45,20 @@ namespace AdventOfCode2023.Day10
                     maze.Add(coord, p);
                     x++;
                 }
-                mazeMaxX = x;
+                mazeMaxX = x-1;
                 y++;
             }
-            mazeMaxY = y;
+            mazeMaxY = y-1;
         }
 
         protected void SetStart()
         {
             start.IsStart = true;
 
-            bool right  = start.Coord.X < mazeMaxX && maze[new Coord(start.Coord.X + 1, start.Coord.Y)].Moves.Left;
-            bool bottom = start.Coord.Y < mazeMaxY && maze[new Coord(start.Coord.X, start.Coord.Y + 1)].Moves.Top;
-            bool left   = start.Coord.X > 0 && maze[new Coord(start.Coord.X - 1, start.Coord.Y)].Moves.Right;
-            bool top    = start.Coord.Y > 0 && maze[new Coord(start.Coord.X, start.Coord.Y - 1)].Moves.Bottom;
+            bool right  = start.Coord.X < mazeMaxX && maze[start.Coord.MoveRight()].Moves.ConnectLeft;
+            bool bottom = start.Coord.Y < mazeMaxY && maze[start.Coord.MoveBottom()].Moves.ConnectTop;
+            bool left   = start.Coord.X > 0 && maze[start.Coord.MoveLeft()].Moves.ConnectRight;
+            bool top    = start.Coord.Y > 0 && maze[start.Coord.MoveTop()].Moves.ConnectBottom;
 
             char c = (right, bottom, left, top) switch
             {
@@ -62,11 +67,72 @@ namespace AdventOfCode2023.Day10
                 (true, false, false, true) => 'L',
                 (false, false, true, true) => 'J',
                 (false, true, true, false) => '7',
-                (true, true, false, false) => 'F',  
+                (true, true, false, false) => 'F',
+                (false, false, false, false) => '.',
             };
 
             start.SetSymbol(c);
         }
 
+        protected void CheckMainLoop()
+        {
+            Pipe current = start;
+            mainLoop.Clear();
+            do
+            {
+                mainLoop.Add(current);
+                current = GetNext(current);
+            } while (current.Coord != start.Coord && !mainLoop.Contains(current));
+        }
+
+        private Pipe GetNext(Pipe current)
+        {
+            Pipe? dest = null;
+
+            if (HasVisited(dest) && current.Moves.ConnectLeft)
+                dest = maze[current.Coord.MoveLeft()];
+            if (HasVisited(dest) && current.Moves.ConnectRight)
+                dest = maze[current.Coord.MoveRight()];
+            if (HasVisited(dest) && current.Moves.ConnectTop)
+                dest = maze[current.Coord.MoveTop()];
+            if (HasVisited(dest) && current.Moves.ConnectBottom)
+                dest = maze[current.Coord.MoveBottom()];
+
+            return dest!.Value;
+        }
+
+        private bool HasVisited(Pipe? dest)
+        {
+            if (!dest.HasValue)
+                return true;
+
+            if (mainLoop.Contains(dest.Value))
+                return true;
+
+            return false;
+        }
+
+        protected void Print()
+        {
+            StringBuilder sb = new();
+            for (int y = 0; y <= mazeMaxY; y++)
+            {
+                for (int x = 0; x <= mazeMaxX; x++)
+                {
+                    Coord c = new Coord(x, y);
+                    if (mainLoop.Contains(maze[c]))
+                        sb.Append('■');
+                    else if (!outside.Contains(maze[c]))
+                        sb.Append('░');
+                    else
+                        sb.Append('.');
+                }
+                sb.Append(Environment.NewLine);
+            }
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine("Day10", "Day10.txt")))
+            {
+                outputFile.Write(sb.ToString());
+            }
+        }
     }
 }

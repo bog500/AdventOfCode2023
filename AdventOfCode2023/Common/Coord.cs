@@ -37,6 +37,11 @@ namespace AdventOfCode2023.Common
         public static bool operator == (Coord a, Coord b) => a.X == b.X && a.Y == b.Y;
         public static bool operator != (Coord a, Coord b) => !(a == b);
 
+        public Coord MoveRight() => new Coord(this.X + 1, this.Y);
+        public Coord MoveBottom() => new Coord(this.X, this.Y + 1);
+        public Coord MoveLeft() => new Coord(this.X - 1, this.Y);
+        public Coord MoveTop() => new Coord(this.X, this.Y - 1);
+
     }
 
     public struct Coord3D(int x, int y, int z)
