@@ -13,7 +13,23 @@ namespace AdventOfCode2023.Day12
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            int total = 0;
+            foreach(var line in lines)
+            {
+                var s = new Spring(FormatLine(line));
+                total += s.Alternates.Count;
+            }
+            return total.ToString();
         }
+
+        private string FormatLine(string line)
+        {
+
+            while (line.Contains(".."))
+                line = line.Replace("..", ".");
+
+            return line;
+        }
+
     }
 }
