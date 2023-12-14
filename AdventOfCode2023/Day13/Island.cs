@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2023.Day13
 {
-    public enum RockAsh { Rock, Ash }
-
-
     public struct Island
     {
         int maxX = -1;
@@ -33,25 +30,22 @@ namespace AdventOfCode2023.Day13
             }
         }
 
-        public RockAsh ToRockAsh(char c) => c switch
-        {
-            '#' => RockAsh.Rock,
-            '.' => RockAsh.Ash
-        };
-
-        public (int mirrorX, int mirrorY) GetMirrors()
+        public (int mirrorX, int mirrorY) GetMirrors(int ignoreX = -1, int ignoreY = -1)
         {
             for(int x = 0; x < maxX; x++)
             {
+                if (x == ignoreX)
+                    continue;
+
                 if (IsMirrorX(x))
                     return (x, -1);
-
-                //if (IsMirrorX(x))
-                //    return (x, -1);
             }
 
             for (int y = 0; y < maxY; y++)
             {
+                if (y == ignoreY)
+                    continue;
+
                 if (IsMirrorY(y))
                     return (-1, y);
             }
@@ -59,10 +53,55 @@ namespace AdventOfCode2023.Day13
             return (-1, -1);
         }
 
-        private bool IsMirrorX(int x, int delta = 0)
+        public (int mirrorX, int mirrorY) GetNewMirrors()
+        {
+            var originalMirrors = GetMirrors();
+
+            for (int x = 0; x <= maxX; x++)
+            {
+                for (int y = 0; y <= maxY; y++)
+                {
+                    Toggle(x, y);
+                    //Print();
+                    var mirrors = GetMirrors(originalMirrors.mirrorX, originalMirrors.mirrorY);
+
+                    if (mirrors.mirrorX != -1 || mirrors.mirrorY != -1)
+                        return mirrors;
+
+                    Toggle(x, y);
+                }
+            }
+            return (-1, -1);
+        }
+
+        public void Print()
+        {
+            for (int y = 0; y <= maxY; y++)
+            {
+                for (int x = 0; x <= maxX; x++)
+                {
+                    var coord = new Coord(x, y);
+                    ConsoleWritter.Write(map[coord], ConsoleColor.DarkGreen);
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("\r\n\r\n");
+        }
+
+        private void Toggle(int x, int y)
+        {
+            var coord = new Coord(x, y);
+            map[coord] = map[coord] switch
+            {
+                '#' => '.',
+                '.' => '#',
+            };
+        }
+
+        private bool IsMirrorX(int x)
         {
             int x1 = x;
-            int x2 = x + 1 + delta;
+            int x2 = x + 1;
             while(x1 >= 0 && x2 <= maxX)
             {
                 string col1 = GetColumn(x1);
@@ -80,10 +119,10 @@ namespace AdventOfCode2023.Day13
 
         }
 
-        private bool IsMirrorY(int y, int delta = 0)
+        private bool IsMirrorY(int y)
         {
             int y1 = y;
-            int y2 = y + 1 + delta;
+            int y2 = y + 1;
             while (y1 >= 0 && y2 <= maxY)
             {
                 string row1 = GetRow(y1);

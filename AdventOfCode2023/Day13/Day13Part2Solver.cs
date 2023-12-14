@@ -11,7 +11,22 @@ namespace AdventOfCode2023.Day13
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            var list = base.Parse(lines);
+
+            int total = 0;
+
+            foreach (var island in list)
+            {
+                var mirrors = island.GetNewMirrors();
+
+                if (mirrors.mirrorX != -1)
+                    total += mirrors.mirrorX + 1;
+
+                if (mirrors.mirrorY != -1)
+                    total += 100 * (mirrors.mirrorY + 1);
+            }
+
+            return total.ToString();
         }
     }
 }

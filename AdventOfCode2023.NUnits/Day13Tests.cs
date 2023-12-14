@@ -22,7 +22,7 @@ namespace AdventOfCode2023.NUnits
 
         [Test]
         [TestCase(FileEnum.Demo2, 400)]
-        //[TestCase(FileEnum.Clue, 560822913938)]
+        [TestCase(FileEnum.Clue, 31954)]
         public void Part2(FileEnum file, int expected)
         {
             base.Part2(file, expected.ToString());
