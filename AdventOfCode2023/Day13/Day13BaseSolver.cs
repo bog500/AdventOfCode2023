@@ -11,7 +11,29 @@ namespace AdventOfCode2023.Day13
 {
     public abstract class Day13BaseSolver : IPartSolver
     {
-        public abstract string Solve(List<string> line);
+        public abstract string Solve(List<string> lines);
+
+        public List<Island> Parse(List<string> lines)
+        {
+            List<Island> list = new();
+
+            if (lines.Last() != "")
+                lines.Add("");
+
+            Island island = new();
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    list.Add(island);
+                    island = new();
+                }
+                else
+                    island.AddRow(line);
+            }
+            return list;
+        }
+
 
     }
 }
