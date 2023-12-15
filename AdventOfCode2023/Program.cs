@@ -37,7 +37,7 @@ using static AdventOfCode2023.Common.Enums;
 
 
 
-IDayRunner runner2 = DayRunners.Get(DayEnum.Day13, PartEnum.Part2);
+IDayRunner runner2 = DayRunners.Get(DayEnum.Day14, PartEnum.Part2);
 //runner2.Demo();
 runner2.Real();
 

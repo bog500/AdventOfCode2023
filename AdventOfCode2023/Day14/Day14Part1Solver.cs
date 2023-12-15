@@ -13,7 +13,15 @@ namespace AdventOfCode2023.Day14
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            var platform = base.Parse(lines);
+
+            platform.TiltNorth();
+
+            // platform.Print();
+
+            var load = platform.GetLoad();
+
+            return load.ToString();
         }
     }
 }
