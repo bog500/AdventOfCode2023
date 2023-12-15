@@ -21,7 +21,7 @@ namespace AdventOfCode2023.Day10
             SetStart();
             CheckMainLoop();
 
-            SetOutsideStart();
+            SetOutside();
 
             Print();
 
@@ -31,44 +31,59 @@ namespace AdventOfCode2023.Day10
             return inside.ToString();
         }
 
-
-
-        private void CheckOutside(Coord c)
+        private void SetOutside()
         {
-            Pipe p = maze[c];
-            if (!mainLoop.Contains(p) && !outside.Contains(p))
+            for (int y = 0; y <= mazeMaxY; y++) 
             {
-                outside.Add(p);
+                bool isOutside = true;
 
-                if (p.Coord.X > 0)
-                    CheckOutside(p.Coord.MoveLeft());
+                char lastCorner = '?';
 
-                if (p.Coord.X < mazeMaxX-1)
-                    CheckOutside(p.Coord.MoveRight());
-
-                if (p.Coord.Y > 0)
-                    CheckOutside(p.Coord.MoveTop());
-
-                if (p.Coord.Y < mazeMaxY-1)
-                    CheckOutside(p.Coord.MoveBottom());
-            }
-        }
-
-        private void SetOutsideStart()
-        {
-            for(int x = 0;  x <= mazeMaxX; x++)
-            {
-                for (int y = 0; y <= mazeMaxY; y++)
+                for (int x = 0; x <= mazeMaxX; x++)
                 {
-                    // if pipe is not on the border
-                    if (!(x == 0 || y == 0 || x == mazeMaxX || y == mazeMaxY))
-                        continue;
+                    Coord c = new Coord(x, y);
+                    Pipe p = maze[c];
+                    if (mainLoop.Contains(p))
+                    {
+                        if (p.Symbol == '-')
+                            continue;
+                        else if (p.Symbol == '|')
+                        {
+                            isOutside = !isOutside;
+                        }
+                        else if (p.Symbol == 'J')
+                        {
+                            if(lastCorner == 'F')
+                                isOutside = !isOutside;
+                            lastCorner = 'J';
+                        } 
+                        else if (p.Symbol == '7')
+                        {
+                            if (lastCorner == 'L')
+                                isOutside = !isOutside;
+                            lastCorner = '7';
+                        }
+                        else if (p.Symbol == 'F')
+                        {
+                            lastCorner = 'F';
+                        }
+                        else if (p.Symbol == 'L')
+                        {
+                            lastCorner = 'L';
+                        }
 
-                    CheckOutside(new Coord(x, y));
+                    } 
+                    else
+                    {
+                        if (isOutside)
+                        {
+                            if(!outside.Contains(p))
+                                outside.Add(p);
+                        }
+                    }
                 }
             }
-
         }
-       
+
     }
 }

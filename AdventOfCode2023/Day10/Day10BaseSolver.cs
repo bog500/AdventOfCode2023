@@ -121,7 +121,7 @@ namespace AdventOfCode2023.Day10
                 {
                     Coord c = new Coord(x, y);
                     if (mainLoop.Contains(maze[c]))
-                        sb.Append('■');
+                        sb.Append(maze[c].Printable);
                     else if (!outside.Contains(maze[c]))
                         sb.Append('░');
                     else

@@ -44,6 +44,17 @@ namespace AdventOfCode2023.Day10.Files
             _ => new Move(connectRight: false, connectBottom: false, connectLeft: false, connectTop: false),
         };
 
+        public char Printable => Symbol switch
+        {
+            '|' => '│',
+            '-' => '─',
+            'L' => '└',
+            'J' => '┘',
+            '7' => '┐',
+            'F' => '┌',
+            _ => 'X',
+        };
+
         public static bool operator ==(Pipe a, Pipe b) => a.Coord == b.Coord;
         public static bool operator !=(Pipe a, Pipe b) => !(a==b);
 
