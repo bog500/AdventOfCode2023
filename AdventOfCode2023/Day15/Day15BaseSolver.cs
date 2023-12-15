@@ -13,14 +13,14 @@ namespace AdventOfCode2023.Day15
     {
         public abstract string Solve(List<string> line);
 
-        private static Dictionary<string, long> dict = new();
+        private static Dictionary<string, int> dict = new();
 
-        public long Hash(string str)
+        public int Hash(string str)
         {
             if(dict.ContainsKey(str))
                 return dict[str];
 
-            long val = 0;
+            int val = 0;
 
             foreach(char c in str)
             {
@@ -35,18 +35,18 @@ namespace AdventOfCode2023.Day15
             return val;
         }
 
-        public long Hashes(string strs)
+        public int Hashes(string strs)
         {
             return Hashes(strs.Split(','));
         }
 
-        public long Hashes(string[] strs)
+        public int Hashes(string[] strs)
         {
-            long total = 0;
+            int total = 0;
 
             foreach(var str in strs)
             {
-                long hash = Hash(str);
+                int hash = Hash(str);
                 total += hash;
             }
 
