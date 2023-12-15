@@ -13,5 +13,47 @@ namespace AdventOfCode2023.Day15
     {
         public abstract string Solve(List<string> line);
 
+        private static Dictionary<string, long> dict = new();
+
+        public long Hash(string str)
+        {
+            if(dict.ContainsKey(str))
+                return dict[str];
+
+            long val = 0;
+
+            foreach(char c in str)
+            {
+                int i = c;
+                val += i;
+                val *= 17;
+                val = val % 256;
+            }
+
+            dict.Add(str, val);
+
+            return val;
+        }
+
+        public long Hashes(string strs)
+        {
+            return Hashes(strs.Split(','));
+        }
+
+        public long Hashes(string[] strs)
+        {
+            long total = 0;
+
+            foreach(var str in strs)
+            {
+                long hash = Hash(str);
+                total += hash;
+            }
+
+            return total;
+        }
+
     }
+
+
 }

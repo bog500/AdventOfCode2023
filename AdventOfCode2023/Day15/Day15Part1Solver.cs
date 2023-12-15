@@ -13,7 +13,11 @@ namespace AdventOfCode2023.Day15
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            string ans = base.Hashes(lines[0]).ToString();
+
+            //string ans = base.Hash("HASH").ToString();
+            
+            return ans;
         }
     }
 }
