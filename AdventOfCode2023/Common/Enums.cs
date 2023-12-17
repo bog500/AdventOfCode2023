@@ -43,5 +43,6 @@ namespace AdventOfCode2023.Common
             Day25,
         }
 
+        public enum Direction { Up, Down, Left, Right }
     }
 }
