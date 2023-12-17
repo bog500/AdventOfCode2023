@@ -21,8 +21,8 @@ namespace AdventOfCode2023.NUnits
         }
 
         [Test]
-        [TestCase(FileEnum.Demo2, 145)]
-        [TestCase(FileEnum.Clue, 252782)]
+        [TestCase(FileEnum.Demo2, 51)]
+        [TestCase(FileEnum.Clue, 7932)]
         public void Part2(FileEnum file, int expected)
         {
             base.Part2(file, expected.ToString());
