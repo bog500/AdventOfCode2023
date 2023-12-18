@@ -1,4 +1,4 @@
-﻿using AdventOfCode2023.Day2;
+﻿using AdventOfCode2023.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,8 @@ namespace AdventOfCode2023.Day17
     {
         public override string Solve(List<string> lines)
         {
+            char[,] layout = Parser.GetLayout(lines);
+
             throw new NotImplementedException();
         }
     }

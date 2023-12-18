@@ -21,7 +21,7 @@ namespace AdventOfCode2023.Day16
 
         protected int Run(List<string> lines)
         {
-            char[,] layout = GetLayout(lines);
+            char[,] layout = Parser.GetLayout(lines);
 
             var beams = new List<Beam>()
             {

@@ -1,4 +1,5 @@
-﻿using AdventOfCode2023.Day2;
+﻿using AdventOfCode2023.Common;
+using AdventOfCode2023.Day2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace AdventOfCode2023.Day16
 
         protected int RunAll(List<string> lines)
         {
-            char[,] layout = GetLayout(lines);
+            char[,] layout = Parser.GetLayout(lines);
 
             List<Task<int>> tasks = new();
 

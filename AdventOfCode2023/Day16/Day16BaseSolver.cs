@@ -15,28 +15,5 @@ namespace AdventOfCode2023.Day16
     {
         public abstract string Solve(List<string> lines);
 
-        protected char[,] GetLayout(List<string> lines)
-        {
-            char[,] layout;
-
-            int rows = lines.Count;
-            int cols = lines[0].Length;
-
-            layout = new char[cols, rows];
-
-            int y = 0;
-            foreach (var line in lines)
-            {
-                int x = 0;
-                foreach (char c in line)
-                {
-                    layout[x, y] = c;
-                    x++;
-                }
-                y++;
-            }
-
-            return layout;
-        }
     }
 }

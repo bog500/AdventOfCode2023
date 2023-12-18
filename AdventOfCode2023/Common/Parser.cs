@@ -33,5 +33,54 @@ namespace AdventOfCode2023.Common
         {
             return (int)c - 48; 
         }
+
+        public static char[,] GetLayout(List<string> lines)
+        {
+            char[,] layout;
+
+            int rows = lines.Count;
+            int cols = lines[0].Length;
+
+            layout = new char[cols, rows];
+
+            int y = 0;
+            foreach (var line in lines)
+            {
+                int x = 0;
+                foreach (char c in line)
+                {
+                    layout[x, y] = c;
+                    x++;
+                }
+                y++;
+            }
+
+            return layout;
+        }
+
+        public static int[,] GetIntLayout(List<string> lines)
+        {
+            int[,] layout;
+
+            int rows = lines.Count;
+            int cols = lines[0].Length;
+
+            layout = new int[cols, rows];
+
+            int y = 0;
+            foreach (var line in lines)
+            {
+                int x = 0;
+                foreach (char c in line)
+                {
+                    layout[x, y] = c - '0';
+                    x++;
+                }
+                y++;
+            }
+
+            return layout;
+        }
+
     }
 }
