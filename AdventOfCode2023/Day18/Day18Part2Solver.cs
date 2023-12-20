@@ -13,5 +13,10 @@ namespace AdventOfCode2023.Day18
         {
             throw new NotImplementedException();
         }
+
+        protected override Instruction ParseInstructionLine(string line)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
