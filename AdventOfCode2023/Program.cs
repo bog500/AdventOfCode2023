@@ -37,11 +37,12 @@ using static AdventOfCode2023.Common.Enums;
 
 
 
-IDayRunner runner2 = DayRunners.Get(DayEnum.Day17, PartEnum.Part1);
+IDayRunner runner2 = DayRunners.Get(DayEnum.Day18, PartEnum.Part1);
 //runner2.Demo();
 runner2.Real();
 
 
 //BenchMarker benchMarker = new BenchMarker();
 //benchMarker.Run<DayRunner<Day16Part2Solver>>();
+
 

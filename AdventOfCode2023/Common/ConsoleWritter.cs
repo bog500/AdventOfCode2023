@@ -28,7 +28,7 @@ namespace AdventOfCode2023.Common
             }
         }
 
-        public static void Write(object msg, ConsoleColor color)
+        public static void Write(object msg, ConsoleColor color = ConsoleColor.Gray)
         {
             if (!Disabled)
             { 

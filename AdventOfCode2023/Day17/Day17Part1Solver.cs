@@ -3,6 +3,7 @@ using AdventOfCode2023.Day10.Files;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static AdventOfCode2023.Common.Enums;
@@ -14,6 +15,8 @@ namespace AdventOfCode2023.Day17
     {
         int[,] layout;
 
+        int[,] bests;
+
         int maxX = 0;
         int maxY = 0;
 
@@ -21,7 +24,14 @@ namespace AdventOfCode2023.Day17
 
         int best = 0;
 
+        ulong nbCheck = 0;
+
         Coord destination;
+
+        Random r = new();
+
+        List<Task<bool>> tasks = new();
+
 
         public override string Solve(List<string> lines)
         {
@@ -32,6 +42,18 @@ namespace AdventOfCode2023.Day17
             return best.ToString();
         }
 
+        private void ResetBestLayout()
+        {
+            bests = new int[maxX + 1, maxY + 1];
+            for(int x = 0; x <= maxX; x++)
+            {
+                for (int y = 0; y <= maxY; y++)
+                {
+                    bests[x, y] = best;
+                }
+            }
+        }
+
         private void StartMove()
         {
             HashSet<Coord> visitedCoords = new();
@@ -40,9 +62,12 @@ namespace AdventOfCode2023.Day17
             maxX = layout.GetLength(0) - 1;
             maxY = layout.GetLength(1) - 1;
 
-            maxVisit = maxX * maxY / 4;
 
-            best = 1200;
+            maxVisit = 2*maxX + 2*maxY;
+
+            best = 91200;
+
+            ResetBestLayout();
 
             Coord startLocation = new Coord(maxX, maxY); 
             destination = new Coord(0, 0);
@@ -51,23 +76,36 @@ namespace AdventOfCode2023.Day17
 
             visitedCoords.Add(startLocation);
 
-            var left = Move(visitedCoords, lastThreeDir, startLocation, Direction.Left, heat);
-            var up = Move(visitedCoords, lastThreeDir, startLocation, Direction.Up, heat);
-
-            Task.WhenAll([left, up]);
-
+            Move(visitedCoords, lastThreeDir, startLocation, Direction.Left, heat, [Direction.Left, Direction.Up, Direction.Down, Direction.Right]);
         }
 
-        private async Task<bool> Move(HashSet<Coord> visitedCoords, List<Direction> lastDir, Coord location, Direction dir, int heat)
+        private IEnumerable<Direction[]> Permutate<Direction>(IEnumerable<Direction> source)
         {
-            await Task.Delay(0);
+            return permutate(source, Enumerable.Empty<Direction>());
+            IEnumerable<Direction[]> permutate(IEnumerable<Direction> reminder, IEnumerable<Direction> prefix) =>
+                !reminder.Any() ? new[] { prefix.ToArray() } :
+                reminder.SelectMany((c, i) => permutate(
+                    reminder.Take(i).Concat(reminder.Skip(i + 1)).ToArray(),
+                    prefix.Append(c)));
+        }
+
+        private void Move(HashSet<Coord> visitedCoords, List<Direction> lastDir, Coord location, Direction dir, int heat, Direction[] priority)
+        {
+            nbCheck++;
+            if (nbCheck % 1000000000 == 0)
+            {
+                ConsoleWritter.Write(nbCheck + " checked with best=");
+                ConsoleWritter.WriteLine(best, color: ConsoleColor.Red);
+            }
+      
+
             if (visitedCoords.Count > maxVisit)
-                return false;
+                return;
 
             //4 last moves in same direction
             var lastDirection = ListDirections(lastDir, dir);
             if (lastDirection.Count() == 4 && lastDirection.Distinct().Count() == 1)
-                return false;
+                return;
 
             var newLocation = dir switch
             {
@@ -79,11 +117,11 @@ namespace AdventOfCode2023.Day17
 
             //outside layout
             if (newLocation.X < 0 || newLocation.Y < 0 || newLocation.X > maxX || newLocation.Y > maxY)
-                return false;
+                return;
 
             //already visited in this loop
             if (visitedCoords.Contains(newLocation))
-                return false;
+                return;
 
 
             // destination found
@@ -93,48 +131,45 @@ namespace AdventOfCode2023.Day17
                 {
                     best = heat;
                     Print(best, visitedCoords);
+                    foreach(var c in visitedCoords)
+                    {
+                        bests[c.X, c.Y] = best;
+                    }
                 }
-                return true;
+                return;
             }
 
+            
+
             int destHeat = layout[newLocation.X, newLocation.Y];
-            if (destHeat > 7)
-                return false;
+            //if (destHeat > 7)
+            //    return false;
 
             int newHeat = heat + destHeat;
 
 
             // already too bad
             if (newHeat > best)
-                return false;
+                return;
+
+            if (bests[newLocation.X, newLocation.Y] < newHeat)
+                return;
 
             // impossible even with all 2
             // do -10 just in case
             if (newHeat + (newLocation.X*2 + newLocation.Y*2) - 10> best)
-                return false;
+            return;
 
             HashSet<Coord> newVisitedCoords = new(visitedCoords);
             newVisitedCoords.Add(newLocation);
 
-
-            int heatUp = GetHeat(newLocation, Direction.Up).heat;
-            int heatLeft = GetHeat(newLocation, Direction.Left).heat;
-
-
-            if(heatUp < heatLeft)
+            //Print(newHeat, newVisitedCoords);
+            foreach(var nextDir in priority.OrderBy(o => r.Next()))
             {
-                await Move(newVisitedCoords, lastDirection, newLocation, Direction.Up, newHeat);
-                await Move(newVisitedCoords, lastDirection, newLocation, Direction.Left, newHeat);
+                Move(newVisitedCoords, lastDirection, newLocation, nextDir, newHeat, priority);
             }
-            else
-            {
-                await Move(newVisitedCoords, lastDirection, newLocation, Direction.Left, newHeat);
-                await Move(newVisitedCoords, lastDirection, newLocation, Direction.Up, newHeat);
-            }
-            await Move(newVisitedCoords, lastDirection, newLocation, Direction.Down, newHeat);
-            await Move(newVisitedCoords, lastDirection, newLocation, Direction.Right, newHeat);
-
-            return false;
+                
+            return;
         }
 
         private void Print(int heat, HashSet<Coord> visitedCoords)
