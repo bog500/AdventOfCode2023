@@ -13,7 +13,9 @@ namespace AdventOfCode2023.Day19
     {
         public override string Solve(List<string> lines)
         {
-            throw new NotImplementedException();
+            base.ParseAll(lines);
+            var ans = base.Run();
+            return ans.ToString();
         }
     }
 }

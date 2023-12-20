@@ -97,7 +97,12 @@ namespace AdventOfCode2023.Day18
                         if (outside.Contains(loc))
                             continue;
 
-                        CheckOutside(loc);
+                        bool added = CheckOutside(loc);
+                        if(added)
+                        {
+                            x = x - 1;
+                            y = y - 1;
+                        }
                     }
                 }
 
@@ -117,21 +122,21 @@ namespace AdventOfCode2023.Day18
 
         }
 
-        private void CheckOutside((int x, int y) loc)
+        private bool CheckOutside((int x, int y) loc)
         {
 
             if (outside.Contains(loc))
-                return;
+                return false;
 
             if (loc.x < minX || loc.x > maxX || loc.y < minY || loc.y > maxY)
             {
                 outside.Add(loc);
-                return;
+                return false;
             }
 
             if (map.Contains(loc))
             {
-                return;
+                return false;
             }
 
             (int x, int y) right = (loc.x + 1, loc.y);
@@ -142,28 +147,28 @@ namespace AdventOfCode2023.Day18
             if (outside.Contains(right))
             {
                 outside.Add(loc);
-                return;
+                return true;
             }
 
             if (outside.Contains(left))
             {
                 outside.Add(loc);
-                return;
+                return true;
             }
 
             if (outside.Contains(up))
             {
                 outside.Add(loc);
-                return;
+                return true;
             }
 
             if (outside.Contains(down))
             {
                 outside.Add(loc);
-                return;
+                return true;
             }
 
-            return;
+            return false;
         }
 
         private HashSet<(int x, int y)> DoTrench(List<Instruction> instructions)
