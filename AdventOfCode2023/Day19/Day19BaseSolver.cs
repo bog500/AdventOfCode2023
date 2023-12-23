@@ -14,29 +14,9 @@ namespace AdventOfCode2023.Day19
     {
         public abstract string Solve(List<string> lines);
 
-        Dictionary<string, RuleSet> rulesets = new();
-        List<MachinePart> machineParts = new();
+        protected Dictionary<string, RuleSet> rulesets = new();
+        protected List<MachinePart> machineParts = new();
 
-        public void ParseAll(List<string> lines)
-        {
-            bool doRules = true;
-            foreach(var line in lines)
-            {
-                if(string.IsNullOrEmpty(line))
-                {
-                    doRules = false;
-                    continue;
-                }
-
-                if (doRules)
-                {
-                    var ruleset = ParseRuleSet(line);
-                    rulesets.Add(ruleset.Key, ruleset);
-                } 
-                else
-                    machineParts.Add(ParseData(line));
-            }
-        }
 
         public RuleSet ParseRuleSet(string line)
         {
@@ -87,9 +67,9 @@ namespace AdventOfCode2023.Day19
             return new MachinePart(x, m, a, s);
         }
 
-        public int Run()
+        public long Run()
         {
-            int total = 0;
+            long total = 0;
             foreach(var part in this.machineParts)
             {
                 RuleSet ruleset = rulesets["in"];
@@ -103,7 +83,7 @@ namespace AdventOfCode2023.Day19
         {
             foreach(var rule in ruleset.Rules)
             {
-                var v = rule.Chr switch
+                int v = rule.Chr switch
                 {
                     'x' => part.X,
                     'm' => part.M,
@@ -111,10 +91,13 @@ namespace AdventOfCode2023.Day19
                     's' => part.S,
                 };
 
+                if (v < 0)
+                    continue;
+
                 if(rule.IsGreater && v > rule.Value || !rule.IsGreater && v < rule.Value)
                 {
                     if (rule.TargetKey == "A")
-                        return part.X + part.M + part.A + part.S;
+                        return GetPartValue(part);
 
                     if (rule.TargetKey == "R")
                         return 0;
@@ -125,7 +108,7 @@ namespace AdventOfCode2023.Day19
             }
 
             if(ruleset.TargetKey == "A")
-                return part.X + part.M + part.A + part.S;
+                return GetPartValue(part);
 
             if (ruleset.TargetKey == "R")
                 return 0;
@@ -134,5 +117,7 @@ namespace AdventOfCode2023.Day19
             return ExecuteRuleset(part, next2);
 
         }
+
+        protected abstract int GetPartValue(MachinePart p);
     }
 }
